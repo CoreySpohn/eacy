@@ -423,7 +423,10 @@ class CI:
         self.TCA = TCA_refl
         self.wb_tran = wb_tran
         self.wb_refl = wb_refl
-        self.wave_beamsplitter = self.wb_tran + self.wb_refl
+        #self.wave_beamsplitter = self.wb_tran + self.wb_refl
+        # wave_beamsplitter is actually just a binary, so since we're combining
+        # vis and nir here, just pass an array of ones for wave_beamsplitter.
+        self.wave_beamsplitter = np.ones_like(self.wb_refl)
         self.pol_beamsplitter = pb_refl
         self.FSM = FSM_refl
         self.OAPs_forward = OAPsf_refl
