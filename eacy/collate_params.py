@@ -14,6 +14,7 @@ import numpy as np
 import astropy.units as u
 import os
 import yaml
+from functools import lru_cache
 from scipy.interpolate import interp1d
 import matplotlib.pyplot as plt
 import pickle
@@ -31,12 +32,13 @@ def generate_wavelength_grid(lammin, lammax, R):
     return lam
 
 
+@lru_cache(maxsize=None)
 def load_yaml(fl_path):
     # fl_path assumed to originate from SCI_ENG_DIR environment variable location
     # For example, in my .zshrc I have this line:
     # export SCI_ENG_DIR=/Users/mhcurrie/science/packages/Sci-Eng-Interface/hwo_sci_eng
     with open(os.getenv("SCI_ENG_DIR") + fl_path, "r") as fl:
-        fl_dict = yaml.load(fl, Loader=yaml.SafeLoader)
+        fl_dict = yaml.load(fl, Loader=yaml.CSafeLoader)
     return fl_dict
 
 
